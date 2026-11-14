@@ -21,6 +21,40 @@ struct Token{
     int line;
 };
 
+Token getNextToken(ifstream& file, int& lineNum){
+    char ch;
+    
+    while(file.get(ch)){
+        if(ch=='\n'){ lineNum++;}
+        else if(ch==' '||ch=='\t'){continue;}
+        else if(ch=='/'){
+            char nextCh;
+            if(file.get(nextCh)){
+                if(nextCh=='/'){
+                    while(file.get(nextCh) && nextCh!='\n');
+                    if(nextCh=='\n') lineNum++;
+                }
+                else if(nextCh=='*'){
+                    char prev=0;
+                    while(file.get(ch)){
+                        if(ch=='\n') lineNum++;
+                        if(prev=='*' && ch=='/') break;
+                        prev=ch;
+                    }
+                }
+                else{
+                    file.unget();
+                    return{TOKEN_OPERATOR, "/", lineNum};
+                }
+            }
+        }
+        else{break;}
+    }
+    if(file.eof()){
+        return {TOKEN_EOF, "EOF", lineNum};
+    }
+}
+
 
 int main(){
     
@@ -45,6 +79,7 @@ int main(){
         if(t.type==TOKEN_EOF) break;
 
         tokens.push_back(t);
+        cout<<"Line "<<t.line<<" | "<<tokenTypeToString(t.type)<<" : "<<t.lexeme<<endl;
     }
 
 
