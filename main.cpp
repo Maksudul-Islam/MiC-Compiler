@@ -3,6 +3,7 @@
 #include <vector>
 #include "lexer.hpp"
 #include "parser.hpp"
+#include "semantic.hpp"
 
 using namespace std;
 
@@ -36,6 +37,9 @@ int main(){
 
     Parser parser(tokens);
     parser.parseProgram();
+
+    SemanticAnalyzer semantic(tokens);
+    semantic.analyzerProgram();
 
     return 0;
 }
