@@ -31,7 +31,7 @@ private:
 
     void parseExpression(){
         Token t=currentToken();
-        if(t.type==TOKEN_INDENTIFIER||t.type==TOKEN_CONSTANT){
+        if(t.type==TOKEN_IDENTIFIER||t.type==TOKEN_CONSTANT){
             nextPosition();
         }
         else{
@@ -41,7 +41,7 @@ private:
         if(currentToken().type==TOKEN_OPERATOR){
             nextPosition();
             t=currentToken();
-            if(t.type==TOKEN_INDENTIFIER||t.type==TOKEN_CONSTANT){
+            if(t.type==TOKEN_IDENTIFIER||t.type==TOKEN_CONSTANT){
                 nextPosition();
             }
             else{
@@ -53,7 +53,7 @@ private:
 
     void parseDeclaration(){
         nextPosition();
-        match(TOKEN_INDENTIFIER);
+        match(TOKEN_IDENTIFIER);
 
         if(currentToken().lexeme=="="){
             nextPosition();
@@ -62,7 +62,7 @@ private:
         match(TOKEN_SYMBOL,";");
     }
     void parseAssignment(){
-        match(TOKEN_INDENTIFIER);
+        match(TOKEN_IDENTIFIER);
         match(TOKEN_OPERATOR,"=");
         parseExpression();
         match(TOKEN_SYMBOL,";");
@@ -90,7 +90,7 @@ private:
         if(t.type==TOKEN_KEYWORD && (t.lexeme=="int"||t.lexeme=="float"||t.lexeme=="double"||t.lexeme=="char")){
             parseDeclaration();
         }
-        else if(t.type==TOKEN_INDENTIFIER){
+        else if(t.type==TOKEN_IDENTIFIER){
             parseAssignment();
         }
         else if(t.type==TOKEN_KEYWORD && t.lexeme=="if"){
@@ -113,7 +113,7 @@ public:
     }
     void parseProgram(){
         match(TOKEN_KEYWORD,"int");
-        match(TOKEN_INDENTIFIER,"main");
+        match(TOKEN_IDENTIFIER,"main");
         match(TOKEN_SYMBOL,"(");
         match(TOKEN_SYMBOL,")");
         match(TOKEN_SYMBOL,"{");

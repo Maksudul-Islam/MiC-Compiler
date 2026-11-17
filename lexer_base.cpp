@@ -10,7 +10,7 @@ using namespace std;
 
 enum TokenType{
     TOKEN_KEYWORD,
-    TOKEN_INDENTIFIER,
+    TOKEN_IDENTIFIER,
     TOKEN_CONSTANT,
     TOKEN_OPERATOR,
     TOKEN_SYMBOL,
@@ -81,7 +81,7 @@ Token getNextToken(ifstream& file, int& lineNum){
         if(isKeyword(word)){
             return {TOKEN_KEYWORD, word, lineNum};
         }
-        return {TOKEN_INDENTIFIER, word, lineNum};
+        return {TOKEN_IDENTIFIER, word, lineNum};
     }
     
     if(isdigit(ch)){
@@ -124,7 +124,7 @@ Token getNextToken(ifstream& file, int& lineNum){
 string tokenTypeToString(TokenType type){
     switch(type){
         case TOKEN_KEYWORD: return "KEYWORD";
-        case TOKEN_INDENTIFIER: return "IDENTIFIER";
+        case TOKEN_IDENTIFIER: return "IDENTIFIER";
         case TOKEN_CONSTANT: return "CONSTANT";
         case TOKEN_OPERATOR: return "OPERATOR";
         case TOKEN_SYMBOL: return"SYMBOL";
